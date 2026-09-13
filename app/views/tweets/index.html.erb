@@ -1,0 +1,66 @@
+<%= stylesheet_link_tag 'index', media: 'all' %>
+
+<h1>RuleVerse</h1>
+<h3>一覧ページ</h3>
+
+<h3>投稿を検索</h3>
+ <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+   <%= text_field_tag :search %>
+   <%= submit_tag '検索する'  %>
+<% end %>
+
+<%= link_to "新規投稿へ", new_tweet_path %>
+<div class="tweets-container">
+
+  <h3>投稿一覧</h3>
+
+  <% @tweets.each do |t| %>
+
+    <div class="tweet">
+
+      <div class="main-box">
+
+        <div class="left-container">
+
+          <% if t.image.attached? %>
+            <%= image_tag t.image, size: '250x200' %>
+          <% end %>
+
+          <p><%= t.user.email %></p>
+          <p><%= t.genre %></p>
+          <p><%= t.gamedate %></p>
+          <p><%= t.about %></p>
+
+        </div>
+
+        <div class="right-container">
+
+          <%= link_to "詳細", tweet_path(t.id) %>
+          <%= link_to "編集", edit_tweet_path(t.id) %>
+          <%= button_to "削除", tweet_path(t.id), method: :delete %>
+
+        </div>
+
+      </div>
+
+      <p class="time"><%= t.created_at %></p>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+  <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+    <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.name %><%= t.name %></li>
+    <% end %>
+    <%= submit_tag '検索' %>
+  <% end %>
+
+
+  <%= form_tag({controller:"tweets",action:"index"}, method: :get) do %>
+    <%= text_field_tag :tag %>
+    <%= submit_tag 'タグを追加' %>
+  <% end %>
+</div>

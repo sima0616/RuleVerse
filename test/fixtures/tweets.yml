@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  genre: MyString
+  gamedate: 2026-07-27
+  about: MyText
+
+two:
+  genre: MyString
+  gamedate: 2026-07-27
+  about: MyText
